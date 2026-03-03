@@ -28,6 +28,8 @@ app.use(
       'http://10.10.20.48:5173',
             'http://13.237.138.182:3000',
       'http://13.237.138.182',
+         'https://admin.claimly.au',
+      'https://claimly.au',
     ],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly allow the header you are sending
