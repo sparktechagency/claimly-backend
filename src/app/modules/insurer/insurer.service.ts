@@ -167,7 +167,7 @@ const updateInsurer = async (id: string, payload: Partial<IInsurer>) => {
   // ৩. ইমেইল পাঠানো (যদি স্ট্যাটাস আপডেট হয়)
   if (targetEmail && payload.status) {
     try {
-      const reportLink = `https://claimly-with-api.vercel.app/my_claims`;
+      const reportLink = `https://claimly.au/my_claims`;
       // const userHtml = `
       //   <h1>Your Insurer  Has Been Updated</h1>
       //   <p>Hello,${targetName}</p>
