@@ -51,7 +51,7 @@ app.use('/uploads', express.static('uploads'));
 //Not Found
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World! From claim insurance server with rongila .');
+  res.send('Hello World! From claim insurance server with rongila- .');
 });
 
 app.use(globalErrorHandler);
