@@ -9,7 +9,7 @@ A comprehensive RESTful API for a health management mobile application. Built wi
 - **User Management**:
 
   - User registration, login, and profile management.
-  - Role-based access control (Admin, Provider, Normal User).
+  - Role-based access control (Admin, Provider, Normal User)..
 
 - **Appointment Management**:
 
