@@ -49,7 +49,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
@@ -60,16 +60,17 @@ jobs:
           ENV_VARS_JSON: ${{ secrets.ENV_VARS_JSON }}
         run: |
           ssh $EC2_USER@$EC2_HOST "
-            # create folder if not exists
-            mkdir -p ~/applications/backend && \
-            
-            # install pm2 globally if not installed
-            if ! command -v pm2 &> /dev/null
-            then
-              npm install -g pm2
-            fi
+            # Create backend folder if missing
+            mkdir -p ~/applications/backend
+
+            # Install Node.js v20 if missing
+            node -v || (curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs)
+
+            # Install PM2 globally if missing
+            pm2 -v || sudo npm install -g pm2
           "
 
+          # Sync build files to EC2
           rsync -avz \
             --delete \
             --exclude='.git' \
@@ -78,6 +79,7 @@ jobs:
             dist package.json package-lock.json \
             $EC2_USER@$EC2_HOST:~/applications/backend/
 
+          # Install dependencies on EC2 and start/reload PM2
           ssh $EC2_USER@$EC2_HOST "
             cd ~/applications/backend && \
             npm ci --omit=dev && \
