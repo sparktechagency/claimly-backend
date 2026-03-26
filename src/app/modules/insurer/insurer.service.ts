@@ -59,8 +59,8 @@ const createInsurer = async (userId: string, payload: Partial<IInsurer>) => {
 
     // Email to Admin
     const adminHtml = `
-      <h1>New Insurer Alert</h1>
-      <p>New insurer registered on the platform.</p>
+      <h1>New Submission alert</h1>
+      <p>A new claim has been submitted for analysis</p>
    
     `;
     if (adminEmail) {
